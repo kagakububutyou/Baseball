@@ -23,10 +23,12 @@ public class Shot : MonoBehaviour {
 	void Update () 
 	{
 		frame ++; // フレームをカウント
-		
+
+		var buttan = Input.GetKeyDown(KeyCode.Joystick1Button0);
+
 		//	Aボタンをおした時かつcountfフレームごと
 		//if(Input.GetButtonDown("ButtanA") && frame % count == 0)
-		if(Input.GetButtonDown("ButtanA"))
+		if(buttan == true)
 		{
 			// 発射位置に弾を生成します 
 			Instantiate(Tama,new Vector3(Tama_x,Tama_y,Tama_z),Quaternion.identity); 

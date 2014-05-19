@@ -34,24 +34,25 @@ public class Batter : MonoBehaviour {
 		//var hor = "Horizontal_Joy1";
 		var anglu = 0.0f;
 		//var count = 0;
-		var buttan = Input.GetAxis("ButtanB");
+		var buttan = Input.GetKey(KeyCode.Joystick2Button0);
 
 		// 現在の回転角度を0～360から-180～180に変換
 		float rotateY = (transform.eulerAngles.y > 180) ?
 						transform.eulerAngles.y - 360: transform.eulerAngles.y;
 
-		if(buttan == 1 && rotateY <= AngluMin) anglu = -Anglu;
-		if(buttan == 0 && rotateY >= AngluMax && transform.eulerAngles.y != 45.00001f) anglu = Anglu * 2;
+		if(buttan == true && rotateY <= AngluMin)
+		{
+			anglu = -Anglu;
+		}
+		if(buttan == false && rotateY >= AngluMax && transform.eulerAngles.y != 45.00001f)
+		{
+			anglu = Anglu * 1.5f;
+		}
 
 		// Sampleを中心にし自分を現在の横方向に、毎秒angle分だけ回転する。
 		Vector3 axis = transform.TransformDirection(1,0,0);
 		transform.RotateAround(targetPos, axis, anglu * Time.deltaTime);
 
 		Debug.Log(rotateY);
-
-		// Sampleを中心にし自分を現在の横方向に、毎秒angle分だけ回転する。
-		//Vector3 axis = transform.TransformDirection(1,0,0);
-		//transform.RotateAround(targetPos, axis, anglu * Time.deltaTime);
-
 	}
 }
