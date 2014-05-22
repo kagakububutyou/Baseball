@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveBall : MonoBehaviour {
 
-	public int speed = -20; // 弾のスピード
+	private const int speed = -30; // 弾のスピード
 	
 	// スクリプトが有効になったとき一回だけ呼ばれます
 	void Start () 
@@ -16,5 +16,17 @@ public class MoveBall : MonoBehaviour {
 	void Update () 
 	{
 
+	}
+
+	//	壁にあたったら
+	void OnCollisionEnter(Collision col)
+	{
+		if(col.gameObject.name == "Wall")
+		{
+			//	動きを止めて
+			rigidbody.velocity = Vector3.zero;
+			//	回転を止める
+			rigidbody.angularVelocity = Vector3.zero;
+		}
 	}
 }

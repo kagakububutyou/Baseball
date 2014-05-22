@@ -5,9 +5,13 @@ public class Shot : MonoBehaviour {
 	
 	public GameObject Tama; // 弾のオブジェクト
 
-	public  int count = 10; // 発射間隔
+	GameObject axis = GameObject.Find("Ball");	//	弾があるかどうか
 
-	private int frame; // フレーム
+
+	public float speed = 0;	//	スピード
+
+	public int BallCount = 0;	//	ボールの数
+
 
 	//	弾の座標
 	private const float Tama_x = 125.0436f;
@@ -17,21 +21,21 @@ public class Shot : MonoBehaviour {
 	// スクリプトが有効になったとき一回だけ呼ばれます
 	void Start () 
 	{
-		frame = 0;
+
 	}
 	// 毎フレーム呼ばれます
 	void Update () 
 	{
-		frame ++; // フレームをカウント
-
+		//　なんのボタンを押しているか
 		var buttan = Input.GetKeyDown(KeyCode.Joystick1Button0);
 
-		//	Aボタンをおした時かつcountfフレームごと
-		//if(Input.GetButtonDown("ButtanA") && frame % count == 0)
-		if(buttan == true)
+		//	Aボタンをおした時
+		if(buttan)
 		{
 			// 発射位置に弾を生成します 
-			Instantiate(Tama,new Vector3(Tama_x,Tama_y,Tama_z),Quaternion.identity); 
+			Instantiate(Tama,transform.position,transform.rotation);
+
+			BallCount++;
 		}
 	}
 }
