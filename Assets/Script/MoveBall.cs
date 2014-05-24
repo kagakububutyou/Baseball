@@ -3,8 +3,13 @@ using System.Collections;
 
 public class MoveBall : MonoBehaviour {
 
-	private const int speed = -30; // 弾のスピード
-	
+	private int speed		= -30; 		// 弾のスピード
+
+	public float Curve		= 0.0f;		//	カーブの度合い
+
+	public float LightCurve	=  7.0f;	//	右カーブ
+	public float LeftCurve	= -7.0f;	//	左カーブ
+
 	// スクリプトが有効になったとき一回だけ呼ばれます
 	void Start () 
 	{
@@ -16,6 +21,20 @@ public class MoveBall : MonoBehaviour {
 	void Update () 
 	{
 
+
+		//	カーブ
+		Curve += Input.GetAxisRaw("Horizontal");
+
+		if(Input.GetAxisRaw("Horizontal") == 0)
+		{
+			Curve = 0;
+		}
+
+
+		Debug.Log(Curve);
+
+		// ホームベース向きに速度を渡してあげます
+		rigidbody.velocity = new Vector3(0, 0, - Curve);
 	}
 
 	//	壁にあたったら
