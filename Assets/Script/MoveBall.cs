@@ -39,9 +39,6 @@ public class MoveBall : MonoBehaviour {
 		{
 			Curve = 0;
 		}
-
-		Debug.Log(Curve);
-
 	}
 
 	//	壁にあたったら

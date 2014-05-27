@@ -3,7 +3,7 @@ using System.Collections;
 
 
 //	審判に関するスクリプト
-public class umpire : MonoBehaviour {
+public class STRIKE : MonoBehaviour {
 
 	public float left		= 10.0f;	//	画面の左から何マスか
 	public float top		= 10.0f;	//	画面の上から何マスか
@@ -24,8 +24,6 @@ public class umpire : MonoBehaviour {
 	// 毎フレーム呼ばれます
 	void Update ()
 	{
-		Debug.Log(StrikeCount);
-
 		//	3ストライクで1アウト
 		if(StrikeCount >= 3)
 		{
@@ -33,8 +31,6 @@ public class umpire : MonoBehaviour {
 
 			StrikeCount = 0;
 		}
-
-
 	}
 
 	// 衝突した弾を
@@ -53,7 +49,6 @@ public class umpire : MonoBehaviour {
 	//	GUIに関する関数
 	void OnGUI()
 	{
-		GUI.Label (new Rect (left, top, width, height), "B");
 		GUI.Label (new Rect (left, top + height, width, height), "S");
 		GUI.Label (new Rect (left, top + (height * 2), width, height), "O");
 

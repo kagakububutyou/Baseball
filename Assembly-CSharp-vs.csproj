@@ -46,12 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\BALL.cs" />
      <Compile Include="Assets\Script\Batter.cs" />
      <Compile Include="Assets\Script\CollisionScript.cs" />
      <Compile Include="Assets\Script\HR.cs" />
      <Compile Include="Assets\Script\MoveBall.cs" />
+     <Compile Include="Assets\Script\On_base.cs" />
+     <Compile Include="Assets\Script\STRIKE.cs" />
      <Compile Include="Assets\Script\Shot.cs" />
-     <Compile Include="Assets\Script\umpire.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
   </ItemGroup>
