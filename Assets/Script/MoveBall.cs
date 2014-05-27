@@ -25,23 +25,23 @@ public class MoveBall : MonoBehaviour {
 	void Update ()
 	{
 
+		if(LightCurve > Curve && LeftCurve < Curve)
+		{
+			//	カーブ
+			Curve += Input.GetAxisRaw("1P");
+		}
 
-
-		//	カーブ
-		Curve += Input.GetAxisRaw("1P");
-
+		//	カーブするときの処理
 		if(Input.GetAxisRaw("Horizontal") != 0 && IsHitBatt == false)
 		{
-			rigidbody.velocity = new Vector3(speed, 0, speed - Curve);
+			rigidbody.velocity = new Vector3(speed + Curve, 0, speed - Curve);
 		}else
 		{
 			Curve = 0;
 		}
 
-
 		Debug.Log(Curve);
 
-		// ホームベース向きに速度を渡してあげます
 	}
 
 	//	壁にあたったら
@@ -53,9 +53,12 @@ public class MoveBall : MonoBehaviour {
 			rigidbody.velocity = Vector3.zero;
 			//	回転を止める
 			rigidbody.angularVelocity = Vector3.zero;
+			//	カーブを止める
+			IsHitBatt = true;
 		}
 		if(collision.gameObject.name == "Batter")
 		{
+			//	カーブを止める
 			IsHitBatt = true;
 		}
 	}
