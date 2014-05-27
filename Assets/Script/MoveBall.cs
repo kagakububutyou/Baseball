@@ -26,8 +26,9 @@ public class MoveBall : MonoBehaviour {
 	{
 
 
+
 		//	カーブ
-		Curve += Input.GetAxisRaw("Horizontal");
+		Curve += Input.GetAxisRaw("1P");
 
 		if(Input.GetAxisRaw("Horizontal") != 0 && IsHitBatt == false)
 		{
