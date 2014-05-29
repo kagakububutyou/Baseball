@@ -39,11 +39,17 @@ public class MoveBall : MonoBehaviour {
 		{
 			Curve = 0;
 		}
+
+		if(rigidbody.velocity == Vector3.zero)
+		{
+			Debug.Log("止まった");
+		}
 	}
 
-	//	壁にあたったら
+
 	void OnCollisionEnter(Collision collision)
 	{
+		//	壁にあたったら
 		if(collision.gameObject.name == "Wall")
 		{
 			//	動きを止めて
@@ -53,10 +59,16 @@ public class MoveBall : MonoBehaviour {
 			//	カーブを止める
 			IsHitBatt = true;
 		}
+		//	バットに当たったら
 		if(collision.gameObject.name == "Batter")
 		{
 			//	カーブを止める
 			IsHitBatt = true;
+
+			//	当たったことをボールに教えてあげる
+			GameObject.Find("Ball").SendMessage("HitBatt");
+			//	当たったことをファールに教えてあげる
+			GameObject.Find("Foul").SendMessage("HitBatt");
 		}
 	}
 }

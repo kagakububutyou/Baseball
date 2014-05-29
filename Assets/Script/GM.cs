@@ -50,8 +50,9 @@ public class GM : MonoBehaviour {
 	//	出塁関数
 	public void OnBase()
 	{
-		//	四球出塁
-		GameObject.Find(BaseOnBalls.ToString()).SendMessage("GoBase");
+		if(BaseOnBalls < 4)
+			//	四球出塁
+			GameObject.Find(BaseOnBalls.ToString()).SendMessage("GoBase");
 	}
 
 
