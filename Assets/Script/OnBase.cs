@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class On_base : MonoBehaviour {
+public class OnBase : MonoBehaviour {
+
+	public GameObject Object;
 
 	// スクリプトが有効になったとき一回だけ呼ばれます
 	void Start () 
 	{
-	
+		
 	}
 	
 	// 毎フレーム呼ばれます
 	void Update () 
 	{
-	
+		
 	}
 
-	public void OnBase()
+	// ベースにランナーを生成します
+	public void GoBase()
 	{
-		Debug.Log("出塁");
+		Instantiate(Object,transform.position,transform.rotation);
 	}
 }
