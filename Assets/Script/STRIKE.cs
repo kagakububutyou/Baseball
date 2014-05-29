@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-//	審判に関するスクリプト
+//	ストライクを数えるスクリプト
 public class STRIKE : MonoBehaviour {
 
 	public float left		= 10.0f;	//	画面の左から何マスか

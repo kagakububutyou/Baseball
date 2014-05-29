@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//	ボールの動きに関するスプリクト
 public class MoveBall : MonoBehaviour {
 
 	public float speed		= -30.0f; 	// 弾のスピード
