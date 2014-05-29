@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//	ボールを数えるスクリプト
 public class BALL : MonoBehaviour {
 
 	public float left		= 10.0f;	//	画面の左から何マスか

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//	弾を発射するスクリプト
 public class Shot : MonoBehaviour {
 	
 	public GameObject Tama; // 弾のオブジェクト
@@ -12,6 +11,12 @@ public class Shot : MonoBehaviour {
 	public float speed = 0;	//	スピード
 
 	public int BallCount = 0;	//	ボールの数
+
+
+	//	弾の座標
+	private const float Tama_x = 125.0436f;
+	private const float Tama_y = 0.5f;
+	private const float Tama_z = 146.1412f;
 
 	// スクリプトが有効になったとき一回だけ呼ばれます
 	void Start () 

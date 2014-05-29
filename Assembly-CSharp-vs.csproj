@@ -49,7 +49,6 @@
      <Compile Include="Assets\Script\BALL.cs" />
      <Compile Include="Assets\Script\Batter.cs" />
      <Compile Include="Assets\Script\CollisionScript.cs" />
-     <Compile Include="Assets\Script\GoBase.cs" />
      <Compile Include="Assets\Script\HR.cs" />
      <Compile Include="Assets\Script\MoveBall.cs" />
      <Compile Include="Assets\Script\On_base.cs" />
