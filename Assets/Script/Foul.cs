@@ -25,11 +25,16 @@ public class Foul : MonoBehaviour {
 	}
 
 	//	弾がとっ待った時にファールゾーンにあったら
-	private void OnTriggerEnter(Collider  collision)
+	private void OnTriggerEnter(Collider collider)
 	{
-		if(collision.gameObject.name == "Ball(Clone)" && IsHitBatt == true)
+		if(collider.gameObject.name == "Ball(Clone)" && IsHitBatt == true)
 		{
 			Debug.Log("ファール");
+
+			IsHitBatt = false;
+
+			//	ファールカウント関数を呼ぶ
+			GameObject.Find("GameManager").SendMessage("GetFoul");
 		}
 	}
 }
