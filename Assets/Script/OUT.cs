@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//	ファールのスクリプト
-public class Foul : MonoBehaviour {
+public class OUT : MonoBehaviour {
 
 	private bool IsHitBatt = false;
-
+	
 	// スクリプトが有効になったとき一回だけ呼ばれます
-	void Start () 
+	void Start ()
 	{
 		IsHitBatt = false;
 	}
 	
 	// 毎フレーム呼ばれます
-	void Update () 
+	void Update ()
 	{
 		
 	}
-
+	
 	//	バットにあったったら呼ばれます
 	public void HitBatt()
 	{
@@ -29,15 +28,12 @@ public class Foul : MonoBehaviour {
 	{
 		if(collider.gameObject.name == "Ball(Clone)" && IsHitBatt == true)
 		{
-			Debug.Log("ファール");
-
+			Debug.Log("アウト");
+			
 			IsHitBatt = false;
-
+			
 			//	ファールカウント関数を呼ぶ
-			GameObject.Find("GameManager").SendMessage("GetFoul");
-
-			//	削除する
-			Destroy(collider.gameObject);
+			GameObject.Find("GameManager").SendMessage("GetOUT");
 		}
 	}
 }

@@ -53,6 +53,7 @@
      <Compile Include="Assets\Script\GM.cs" />
      <Compile Include="Assets\Script\HR.cs" />
      <Compile Include="Assets\Script\MoveBall.cs" />
+     <Compile Include="Assets\Script\OUT.cs" />
      <Compile Include="Assets\Script\OnBase.cs" />
      <Compile Include="Assets\Script\STRIKE.cs" />
      <Compile Include="Assets\Script\Shot.cs" />

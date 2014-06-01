@@ -17,10 +17,15 @@ public class GM : MonoBehaviour {
 	private int StrikeCount	= 0;		//　ストライクの数
 	private int OutCount	= 0;		//	アウトカウント
 
-	private float FoulTimeCount		= 0.0f;		//	ファール表示時間
-	public float FoulTimeCountMax	= 60.0f;	//	ファール表示最大時間
+	private float TimeCount		= 0.0f;		//	ファール表示時間
+	public float TimeCountMax	= 60.0f;	//	ファール表示最大時間
 
-	public bool Foul = false;	//	ファールかどうか
+	public bool OrFoul		= false;	//	ファールかどうか
+	public bool OrStrike	= false;	//	ストライクかどうか
+	public bool OrBall		= false;	//	
+	public bool OrOut		= false;
+
+	private string String	= "";	//	ボールとかストライクとかを表示する
 
 	//	スクリプトが有効になったとき一回だけ呼ばれます
 	//	初期化とかに使う
@@ -32,40 +37,115 @@ public class GM : MonoBehaviour {
 	// 毎フレーム呼ばれます
 	void Update () 
 	{
-		Debug.Log(FoulTimeCount);
+		Debug.Log(TimeCount);
 
-		FoulCount();
+		Count();
 	}
 
-	//	ボールだったら呼ばれる関数
-	public void GetBallCount()
-	{
-		//	ボールをインクリメント
-		BallCount++;
 
-		//	フォアボールでカウントリセット
-		if(BallCount >= 4)
-		{
-			BallCount = 0;
-
-			//	四球インクリメント
-			BaseOnBalls++;
-
-			OnBase();
-		}
-	}
 
 
 	//	出塁関数
 	public void OnBase()
 	{
-		if(BaseOnBalls < 4)
-			//	四球出塁
-			GameObject.Find(BaseOnBalls.ToString()).SendMessage("GoBase");
+		//	四球出塁
+		GameObject.Find(BaseOnBalls.ToString()).SendMessage("GoBase");
+	}
+
+	//	ボールだったら呼ばれる関数
+	public void GetBallCount()
+	{
+		OrBall = true;
+
+		String = "ボール";
 	}
 
 	//	ストライクだったら呼ばれる関数
 	public void GetStrikeCount()
+	{
+		OrStrike = true;
+
+		String = "ストライク";
+	}
+
+	public void GetOUT()
+	{
+		OrOut = true;
+
+		String = "アウト";
+	}
+
+	//	ファールだったら呼ばれる関数
+	public void GetFoul()
+	{
+		OrFoul = true;
+
+		String = "ファール";
+	}
+	//	ファールしたらカウントを取る
+	public void Count()
+	{
+		if(OrFoul == true || OrStrike == true || OrBall == true || OrOut == true)
+		{
+			TimeCount += 1;
+			
+			//	ファール表示時間
+			if(TimeCount >= TimeCountMax)
+			{
+				switch(String)
+				{
+				case "ファール":
+					
+					Foul();
+
+					OrFoul = false;
+
+					break;
+				case "ストライク":
+					
+					Strike();
+
+					OrStrike = false;
+
+					break;
+
+				case "ボール":
+
+					Ball();
+
+					OrBall = false;
+
+					break;
+
+				case "アウト":
+
+					OUT();
+
+					OrOut = false;
+
+					break;
+				default:
+					
+					Debug.Log(String);
+					
+					break;
+					
+				}
+				TimeCount = 0;
+			}
+		}
+	}
+
+	//	ファールの処理
+	public void Foul()
+	{
+		if(StrikeCount < 2)
+		{
+			StrikeCount++;
+		}
+	}
+	//	ストライクの処理
+	public void Strike()
 	{
 		//	ストライクをインクリメント
 		StrikeCount++;
@@ -73,54 +153,50 @@ public class GM : MonoBehaviour {
 		//	3ストライクで1アウト
 		if(StrikeCount >= 3)
 		{
-			OutCount++;
-			
-			StrikeCount = 0;
+			GetOUT();
 		}
 	}
-
-	//	ファールだったら呼ばれる関数
-	public void GetFoul()
+	//	ボールの処理
+	public void Ball()
 	{
-		Foul = true;
-	}
-	//	ファールしたらカウントを取る
-	public void FoulCount()
-	{
-		if(Foul == true)
+		//	ボールをインクリメント
+		BallCount++;
+		
+		//	フォアボールでカウントリセット
+		if(BallCount >= 4)
 		{
-			FoulTimeCount += 1;
+			BallCount = 0;
 			
-			//	ファール表示時間
-			if(FoulTimeCount >= FoulTimeCountMax)
-			{
-				Foul = false;
-				FoulTimeCount = 0;
-			}
+			//	四球インクリメント
+			BaseOnBalls++;
 			
-			if(StrikeCount < 2)
-			{
-				StrikeCount++;
-			}
+			OnBase();
 		}
 	}
 
+	public void OUT()
+	{
+		OutCount++;
+
+		StrikeCount = 0;
+
+		BallCount = 0;
+	}
 	//	GUIに関する関数
 	void OnGUI()
 	{
-		var s  = "ファール!!";
-		//	文字の色とサイズを変更してみます。
+		//	文字の色とサイズを変更
 		var localStyle = new GUIStyle();
 		localStyle.normal.textColor = Color.black;
 		localStyle.fontSize = FontSize;
 
 		//CalcSize( new GUIContent(String) )で文字列の幅、高さを取得できる
-		var stringSize = localStyle.CalcSize( new GUIContent(s) );
+		var stringSize = localStyle.CalcSize( new GUIContent(String) );
 
 		//	画面の真ん中に表示
-		if(FoulTimeCount > 0 && FoulTimeCount < FoulTimeCountMax)
+		if(TimeCount > 0 && TimeCount < TimeCountMax)
 		{
-			GUI.Label (new Rect (Screen.width/2-stringSize.x/2, Screen.height/2-stringSize.y/2, stringSize.x, stringSize.y), s, localStyle);
+			GUI.Label (new Rect (Screen.width/2-stringSize.x/2, Screen.height/2-stringSize.y/2, stringSize.x, stringSize.y), String, localStyle);
 		}
 
 

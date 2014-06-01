@@ -40,13 +40,14 @@ public class MoveBall : MonoBehaviour {
 			Curve = 0;
 		}
 
+		//	ボールが止まったら消す
 		if(rigidbody.velocity == Vector3.zero)
 		{
-			Debug.Log("止まった");
+			Destroy(gameObject);
 		}
 	}
 
-
+	//	当たり判定
 	void OnCollisionEnter(Collision collision)
 	{
 		//	壁にあたったら
@@ -69,6 +70,8 @@ public class MoveBall : MonoBehaviour {
 			GameObject.Find("Ball").SendMessage("HitBatt");
 			//	当たったことをファールに教えてあげる
 			GameObject.Find("Foul").SendMessage("HitBatt");
+
+			GameObject.Find("OUT").SendMessage("HitBatt");
 		}
 	}
 }
