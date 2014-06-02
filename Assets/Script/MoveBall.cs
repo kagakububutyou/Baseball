@@ -43,7 +43,9 @@ public class MoveBall : MonoBehaviour {
 		//	ボールが止まったら消す
 		if(rigidbody.velocity == Vector3.zero)
 		{
-			Destroy(gameObject);
+			GameObject.Find("OUT").SendMessage("StopBall");
+
+			//Destroy(gameObject);
 		}
 	}
 
