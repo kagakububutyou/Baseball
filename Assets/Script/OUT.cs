@@ -26,7 +26,9 @@ public class OUT : MonoBehaviour {
 	//	弾がとっ待った時にファールゾーンにあったら
 	private void OnTriggerEnter(Collider collider)
 	{
-		if(collider.gameObject.name == "Ball(Clone)" && IsHitBatt == true)
+		Debug.Log("＼(＾o＾)／");
+
+		if(collider.gameObject.name == "Ball(Clone)")
 		{
 			Debug.Log("アウト");
 			

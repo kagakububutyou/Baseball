@@ -1,13 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GM.cs">
     <Files>
-      <File FileName="Assets\Script\GM.cs" Line="150" Column="19" />
+      <File FileName="Assets\Script\GM.cs" Line="231" Column="64" />
       <File FileName="Assets\Script\Foul.cs" Line="41" Column="4" />
       <File FileName="Assets\Script\Shot.cs" Line="1" Column="1" />
       <File FileName="Assets\Script\MoveBall.cs" Line="66" Column="14" />
-      <File FileName="Assets\Script\BALL.cs" Line="21" Column="20" />
-      <File FileName="Assets\Script\OUT.cs" Line="36" Column="4" />
+      <File FileName="Assets\Script\BALL.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\OUT.cs" Line="6" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

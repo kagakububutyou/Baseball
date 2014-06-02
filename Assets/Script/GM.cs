@@ -20,6 +20,11 @@ public class GM : MonoBehaviour {
 	private float TimeCount		= 0.0f;		//	ファール表示時間
 	public float TimeCountMax	= 60.0f;	//	ファール表示最大時間
 
+
+	private int Scora1P		= 0;		//	得点
+	private int Scora2P		= 0;
+
+
 	public bool OrFoul		= false;	//	ファールかどうか
 	public bool OrStrike	= false;	//	ストライクかどうか
 	public bool OrBall		= false;	//	
@@ -199,15 +204,6 @@ public class GM : MonoBehaviour {
 			GUI.Label (new Rect (Screen.width/2-stringSize.x/2, Screen.height/2-stringSize.y/2, stringSize.x, stringSize.y), String, localStyle);
 		}
 
-
-
-
-
-
-
-
-
-
 		GUI.Label (new Rect (left, top, width, height), "B");
 		GUI.Label (new Rect (left, top + height, width, height), "S");
 		GUI.Label (new Rect (left, top + (height * 2), width, height), "O");
@@ -229,5 +225,10 @@ public class GM : MonoBehaviour {
 		{
 			GUI.Label (new Rect (left + beeline + (beeline * i), top + (height * 2), width, height), "●");
 		}
+
+		GUI.Label (new Rect (left + (beeline * 10), 0, width, height), "0回オモテ");
+
+		GUI.Label (new Rect (left + (beeline * 10), top + (height * 1), width, height), Scora1P.ToString());
+		GUI.Label (new Rect (left + (beeline * 10), top + (height * 2), width, height), Scora2P.ToString());
 	}
 }
