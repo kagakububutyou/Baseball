@@ -7,7 +7,7 @@ public class MoveBall : MonoBehaviour {
 
 	public float Curve		= 0.0f;		//	カーブの度合い
 
-	public bool IsHitBatt	= false;	//	バットに当たったか
+	public static bool IsHitBatt	= false;	//	バットに当たったか
 
 	public float LightCurve	=  7.0f;	//	右カーブ
 	public float LeftCurve	= -7.0f;	//	左カーブ
@@ -43,9 +43,8 @@ public class MoveBall : MonoBehaviour {
 		//	ボールが止まったら消す
 		if(rigidbody.velocity == Vector3.zero)
 		{
-			GameObject.Find("OUT").SendMessage("StopBall");
-
-			//Destroy(gameObject);
+			//GameObject.Find("OUT").SendMessage("StopBall");
+			Destroy(gameObject);
 		}
 	}
 
@@ -55,10 +54,11 @@ public class MoveBall : MonoBehaviour {
 		//	壁にあたったら
 		if(collision.gameObject.name == "Wall")
 		{
+
 			//	動きを止めて
-			rigidbody.velocity = Vector3.zero;
+			//rigidbody.velocity = Vector3.zero;
 			//	回転を止める
-			rigidbody.angularVelocity = Vector3.zero;
+			//rigidbody.angularVelocity = Vector3.zero;
 			//	カーブを止める
 			IsHitBatt = true;
 		}
@@ -67,13 +67,6 @@ public class MoveBall : MonoBehaviour {
 		{
 			//	カーブを止める
 			IsHitBatt = true;
-
-			//	当たったことをボールに教えてあげる
-			GameObject.Find("Ball").SendMessage("HitBatt");
-			//	当たったことをファールに教えてあげる
-			GameObject.Find("Foul").SendMessage("HitBatt");
-
-			GameObject.Find("OUT").SendMessage("HitBatt");
 		}
 	}
 }

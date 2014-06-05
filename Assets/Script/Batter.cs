@@ -7,12 +7,12 @@ public class Batter : MonoBehaviour {
 	//	オブジェクト
 	public GameObject Batt;
 	//	一秒あたりの回転角度
-	public float Anglu = -360.0f;
+	public float Angle = -360.0f;
 
 	//最大角度
-	public const float AngluMax = -90.0f;
+	public const float AngleMax = -90.0f;
 	//最低角度
-	public const float AngluMin = 150.0f;
+	public const float AngleMin = 150.0f;
 
 	//	回転の中心を取るために使う変数
 	private Vector3 targetPos;
@@ -25,7 +25,6 @@ public class Batter : MonoBehaviour {
 		Transform target = Batt.transform;
 		//	変数targetPosにSmpleの位置情報を取得
 		targetPos = target.position;
-
 	}
 	
 	// 毎フレーム呼ばれます
@@ -33,7 +32,7 @@ public class Batter : MonoBehaviour {
 	{
 
 		//	バットの振る早さ
-		var anglu = 0.0f;
+		var angle = 0.0f;
 		//	なんのボタンを押しているか
 		var buttan = Input.GetKey(KeyCode.Joystick2Button0);
 
@@ -42,18 +41,18 @@ public class Batter : MonoBehaviour {
 						transform.eulerAngles.y - 360: transform.eulerAngles.y;
 
 		//	押たらバットを構える
-		if(buttan == true && rotateY <= AngluMin)
+		if(buttan == true && rotateY <= AngleMin)
 		{
-			anglu = -Anglu;
+			angle = -Angle;
 		}
 		//	離したらバットを振る
-		if(buttan == false && rotateY >= AngluMax && transform.eulerAngles.y != 45.00001f)
+		if(buttan == false && rotateY >= AngleMax && transform.eulerAngles.y != 45.00001f)
 		{
-			anglu = Anglu * 2.0f;
+			angle = Angle * 2.0f;
 		}
 
 		// Sampleを中心にし自分を現在の横方向に、毎秒angle分だけ回転する。
 		Vector3 axis = transform.TransformDirection(1,0,0);
-		transform.RotateAround(targetPos, axis, anglu * Time.deltaTime);
+		transform.RotateAround(targetPos, axis, angle * Time.deltaTime);
 	}
 }

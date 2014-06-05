@@ -4,7 +4,7 @@ using System.Collections;
 public class OnBase : MonoBehaviour {
 
 	public GameObject Object;
-
+	
 	// スクリプトが有効になったとき一回だけ呼ばれます
 	void Start () 
 	{
@@ -17,9 +17,14 @@ public class OnBase : MonoBehaviour {
 		
 	}
 
+	public void ReturnBase()
+	{
+		return;
+	}
+
 	// ベースにランナーを生成します
 	public void GoBase()
 	{
-		Instantiate(Object,transform.position,transform.rotation);
+		Instantiate(Object.gameObject,transform.position,transform.rotation);
 	}
 }

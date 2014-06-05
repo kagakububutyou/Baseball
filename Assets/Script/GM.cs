@@ -13,9 +13,11 @@ public class GM : MonoBehaviour {
 	public int	FontSize	= 50;		//	文字サイズ
 	
 	private int BallCount	= 0;		//　ボールの数
-	private int BaseOnBalls	= 0;		//	四球
 	private int StrikeCount	= 0;		//　ストライクの数
 	private int OutCount	= 0;		//	アウトカウント
+
+	public static int[] BaseOnBalls = new int[4];		//	四球
+	public int Base = 0;
 
 	private float TimeCount		= 0.0f;		//	ファール表示時間
 	public float TimeCountMax	= 60.0f;	//	ファール表示最大時間
@@ -25,10 +27,12 @@ public class GM : MonoBehaviour {
 	private int Scora2P		= 0;
 
 
+
 	public bool OrFoul		= false;	//	ファールかどうか
 	public bool OrStrike	= false;	//	ストライクかどうか
 	public bool OrBall		= false;	//	
 	public bool OrOut		= false;
+	public bool Or2ndBH		= false;
 
 	private string String	= "";	//	ボールとかストライクとかを表示する
 
@@ -36,25 +40,61 @@ public class GM : MonoBehaviour {
 	//	初期化とかに使う
 	void Start () 
 	{
-
+		for(int i = 0; i < 4; i++)
+		{
+			BaseOnBalls[i] = 0;
+		}
+		Base = 0;
 	}
 	
 	// 毎フレーム呼ばれます
 	void Update () 
 	{
-		Debug.Log(TimeCount);
+		//Debug.Log(TimeCount);
+
+		for(int i = 0; i < 4; i++)
+		{
+			Debug.Log(BaseOnBalls[i]);
+		}
+
+		Debug.Log("0"+BaseOnBalls[0]);
+		Debug.Log("1"+BaseOnBalls[1]);
+		Debug.Log("2"+BaseOnBalls[2]);
+		Debug.Log("3"+BaseOnBalls[3]);
 
 		Count();
 	}
 
 
-
+	//	
+	public void OffBase()
+	{
+		for(int i = 1; i <= Base; i++)
+		{
+			GameObject.Find("Runner").SendMessage("ThisDestroy");
+		}
+	}
 
 	//	出塁関数
 	public void OnBase()
 	{
-		//	四球出塁
-		GameObject.Find(BaseOnBalls.ToString()).SendMessage("GoBase");
+		//GameObject.Find("Runner").SendMessage("OnBase");
+
+
+		for(int i = 0; i <= Base; i++)
+		{
+			if(BaseOnBalls[i] >= 1)
+			{
+				//	出塁
+				//GameObject.Find(BaseOnBalls[i].ToString()).SendMessage("GoBase");
+				GameObject.Find("Runner"+i.ToString()).SendMessage("OnBase");
+			}
+			else
+			{
+				//GameObject.Find("Runner(Clone)").SendMessage("ThisDestroy");
+			}
+		}
+		//GameObject.Find("Runner").SendMessage("GoBase");
 	}
 
 	//	ボールだったら呼ばれる関数
@@ -87,10 +127,18 @@ public class GM : MonoBehaviour {
 
 		String = "ファール";
 	}
+	public void GetSecondBH()
+	{
+		Or2ndBH = true;
+
+		String = "セカンドベースヒット";
+	}
+
 	//	ファールしたらカウントを取る
 	public void Count()
 	{
-		if(OrFoul == true || OrStrike == true || OrBall == true || OrOut == true)
+		if(OrFoul == true || OrStrike == true || OrBall == true || OrOut == true
+		|| Or2ndBH == true)
 		{
 			TimeCount += 1;
 			
@@ -127,6 +175,14 @@ public class GM : MonoBehaviour {
 					OUT();
 
 					OrOut = false;
+
+					break;
+
+				case "セカンドベースヒット":
+
+					SecondBH();
+
+					Or2ndBH = false;
 
 					break;
 				default:
@@ -170,15 +226,22 @@ public class GM : MonoBehaviour {
 		//	フォアボールでカウントリセット
 		if(BallCount >= 4)
 		{
+			//OffBase();
+
 			BallCount = 0;
-			
-			//	四球インクリメント
-			BaseOnBalls++;
-			
+
+			for(int i = 0; i <= Base; i++)
+			{
+				//	四球インクリメント
+				BaseOnBalls[i]++;
+			}
+
 			OnBase();
+
+			Base++;
 		}
 	}
-
+	//	アウト処理
 	public void OUT()
 	{
 		OutCount++;
@@ -186,6 +249,21 @@ public class GM : MonoBehaviour {
 		StrikeCount = 0;
 
 		BallCount = 0;
+	}
+
+	//	2塁打の処理
+	public void SecondBH()
+	{
+		//OffBase();
+
+		for(int i = 0; i <= Base; i++)
+		{
+			BaseOnBalls[i] += 2;
+		}
+
+		OnBase();
+
+		Base++;
 	}
 	//	GUIに関する関数
 	void OnGUI()
